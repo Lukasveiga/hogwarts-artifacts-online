@@ -1,8 +1,10 @@
 package com.devlukas.hogwartsartifactsonline.wizard.dto;
 
-import com.devlukas.hogwartsartifactsonline.wizard.Wizard;
+import jakarta.validation.constraints.NotEmpty;
 
 public record WizardDto(Integer id,
+
+                        @NotEmpty(message = "Name is required")
                         String name,
                         Integer numberOfArtifacts) {
 

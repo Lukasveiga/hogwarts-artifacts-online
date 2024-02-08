@@ -1,6 +1,7 @@
 package com.devlukas.hogwartsartifactsonline.artifact;
 
 import com.devlukas.hogwartsartifactsonline.artifact.utils.IdWorker;
+import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import com.devlukas.hogwartsartifactsonline.wizard.Wizard;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,8 +99,8 @@ class ArtifactServiceTest {
 
         // When - Then
         assertThatThrownBy(() -> artifactService.findById(artifactId))
-                .isInstanceOf(ArtifactNotFoundException.class)
-                .hasMessage("Could not found artifact with Id %s".formatted(artifactId));
+                .isInstanceOf(ObjectNotFoundException.class)
+                .hasMessage("Could not found Artifact with Id %s".formatted(artifactId));
         verify(artifactRepository, times(1)).findById(artifactId);
     }
 
@@ -184,8 +185,8 @@ class ArtifactServiceTest {
 
         // When - Then
         assertThatThrownBy(() -> artifactService.update("123456", update))
-                .isInstanceOf(ArtifactNotFoundException.class)
-                .hasMessage("Could not found artifact with Id %s".formatted("123456"));
+                .isInstanceOf(ObjectNotFoundException.class)
+                .hasMessage("Could not found Artifact with Id %s".formatted("123456"));
         verify(artifactRepository, times(1)).findById("123456");
         verify(artifactRepository, times(0)).save(any(Artifact.class));
     }
@@ -220,8 +221,8 @@ class ArtifactServiceTest {
 
         // When - Then
         assertThatThrownBy(() -> artifactService.delete("123456"))
-                .isInstanceOf(ArtifactNotFoundException.class)
-                .hasMessage("Could not found artifact with Id %s".formatted("123456"));
+                .isInstanceOf(ObjectNotFoundException.class)
+                .hasMessage("Could not found Artifact with Id %s".formatted("123456"));
         verify(artifactRepository, times(1)).findById("123456");
         verify(artifactRepository, times(0)).deleteById("123456");
     }

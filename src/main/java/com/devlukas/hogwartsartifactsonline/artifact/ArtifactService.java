@@ -1,6 +1,7 @@
 package com.devlukas.hogwartsartifactsonline.artifact;
 
 import com.devlukas.hogwartsartifactsonline.artifact.utils.IdWorker;
+import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,10 @@ public class ArtifactService {
         this.idWorker = idWorker;
     }
 
-    public Artifact findById(String artifactId) throws ArtifactNotFoundException {
+    public Artifact findById(String artifactId) {
         return this.artifactRepository
                 .findById(artifactId)
-                .orElseThrow(() -> new ArtifactNotFoundException(artifactId));
+                .orElseThrow(() -> new ObjectNotFoundException(Artifact.class.getSimpleName() ,artifactId));
     }
 
     public List<Artifact> findAll() {
@@ -35,7 +36,7 @@ public class ArtifactService {
         return this.artifactRepository.save(newArtifact);
     }
 
-    public Artifact update(String artifactId, Artifact update ) throws ArtifactNotFoundException {
+    public Artifact update(String artifactId, Artifact update ) {
         var oldArtifact = findById(artifactId);
         oldArtifact.setName(update.getName());
         oldArtifact.setDescription(update.getDescription());
