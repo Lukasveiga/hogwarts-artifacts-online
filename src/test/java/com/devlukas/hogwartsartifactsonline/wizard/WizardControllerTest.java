@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -255,6 +256,60 @@ class WizardControllerTest {
                 .andExpect(jsonPath("$.flag").value(false))
                 .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
                 .andExpect(jsonPath("$.message").value("Could not found Wizard with Id %d".formatted(wizardId)))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
+    @Test
+    void testAssignArtifactSuccess() throws Exception {
+        // Given
+        var artifactId = "123456";
+        var wizardId = 1;
+
+        doNothing().when(this.wizardService)
+                .assignArtifact(anyInt(), anyString());
+
+        // When - Then
+        this.mockMvc.perform(put(BASE_URL + "/" + wizardId + "/artifacts/" + artifactId)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(true))
+                .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
+                .andExpect(jsonPath("$.message").value("Artifact assignment success"))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
+    @Test
+    void testAssignArtifactErrorWithNonExistentWizardId() throws Exception {
+        // Given
+        var artifactId = "123456";
+        var wizardId = 1;
+
+        doThrow(new ObjectNotFoundException(Wizard.class.getSimpleName() ,wizardId))
+                .when(this.wizardService).assignArtifact(anyInt(), anyString());
+
+        // When - Then
+        this.mockMvc.perform(put(BASE_URL + "/" + wizardId + "/artifacts/" + "12456")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
+                .andExpect(jsonPath("$.message").value("Could not found Wizard with Id %d".formatted(wizardId)))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
+    @Test
+    void testAssignArtifactErrorWithNonExistentArtifactId() throws Exception {
+        // Given
+        var artifactId = "123456";
+        var wizardId = 1;
+
+        doThrow(new ObjectNotFoundException(Artifact.class.getSimpleName() ,artifactId))
+                .when(this.wizardService).assignArtifact(anyInt(), anyString());
+
+        // When - Then
+        this.mockMvc.perform(put(BASE_URL + "/" + wizardId + "/artifacts/" + artifactId)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
+                .andExpect(jsonPath("$.message").value("Could not found Artifact with Id %s".formatted(artifactId)))
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 }
