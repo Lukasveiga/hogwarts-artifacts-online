@@ -2,6 +2,8 @@ package com.devlukas.hogwartsartifactsonline.system;
 
 import com.devlukas.hogwartsartifactsonline.artifact.Artifact;
 import com.devlukas.hogwartsartifactsonline.artifact.ArtifactRepository;
+import com.devlukas.hogwartsartifactsonline.hogwartsuser.HogwartsUser;
+import com.devlukas.hogwartsartifactsonline.hogwartsuser.UserRepository;
 import com.devlukas.hogwartsartifactsonline.wizard.Wizard;
 import com.devlukas.hogwartsartifactsonline.wizard.WizardRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -16,9 +18,12 @@ public class DBDataInitializer implements CommandLineRunner {
 
     private final WizardRepository wizardRepository;
 
-    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository) {
+    private final UserRepository userRepository;
+
+    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository) {
         this.artifactRepository = artifactRepository;
         this.wizardRepository = wizardRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -69,6 +74,14 @@ public class DBDataInitializer implements CommandLineRunner {
         wizardRepository.save(w3);
 
         artifactRepository.save(a6);
+
+        var user1 = createUser(1, "user1", "password1", true, "user");
+        var user2 = createUser(2, "admin", "password2", true, "admin");
+        var user3 = createUser(3, "user2", "password3", true, "user admin");
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
     }
 
     private static Artifact generateArtifact(String id, String name, String description, String imageUrl) {
@@ -85,5 +98,18 @@ public class DBDataInitializer implements CommandLineRunner {
         w.setId(id);
         w.setName(name);
         return w;
+    }
+    private static HogwartsUser createUser(Integer id,
+                                             String username,
+                                             String password,
+                                             boolean enable,
+                                             String roles) {
+        var newUser = new HogwartsUser();
+        newUser.setId(id);
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        newUser.setEnable(enable);
+        newUser.setRoles(roles);
+        return newUser;
     }
 }

@@ -4,7 +4,6 @@ import com.devlukas.hogwartsartifactsonline.artifact.dto.ArtifactDto;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.Valid;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

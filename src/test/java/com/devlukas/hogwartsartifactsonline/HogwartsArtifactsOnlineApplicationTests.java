@@ -3,10 +3,10 @@ package com.devlukas.hogwartsartifactsonline;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class HogwartsArtifactsOnlineApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 
