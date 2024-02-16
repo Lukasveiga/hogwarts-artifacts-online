@@ -3,7 +3,7 @@ package com.devlukas.hogwartsartifactsonline.system;
 import com.devlukas.hogwartsartifactsonline.artifact.Artifact;
 import com.devlukas.hogwartsartifactsonline.artifact.ArtifactRepository;
 import com.devlukas.hogwartsartifactsonline.hogwartsuser.HogwartsUser;
-import com.devlukas.hogwartsartifactsonline.hogwartsuser.UserRepository;
+import com.devlukas.hogwartsartifactsonline.hogwartsuser.UserService;
 import com.devlukas.hogwartsartifactsonline.wizard.Wizard;
 import com.devlukas.hogwartsartifactsonline.wizard.WizardRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -18,13 +18,14 @@ public class DBDataInitializer implements CommandLineRunner {
 
     private final WizardRepository wizardRepository;
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository) {
+    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserService userService) {
         this.artifactRepository = artifactRepository;
         this.wizardRepository = wizardRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -79,9 +80,9 @@ public class DBDataInitializer implements CommandLineRunner {
         var user2 = createUser(2, "admin", "password2", true, "admin");
         var user3 = createUser(3, "user2", "password3", true, "user admin");
 
-        userRepository.save(user1);
-        userRepository.save(user2);
-        userRepository.save(user3);
+        userService.save(user1);
+        userService.save(user2);
+        userService.save(user3);
     }
 
     private static Artifact generateArtifact(String id, String name, String description, String imageUrl) {
