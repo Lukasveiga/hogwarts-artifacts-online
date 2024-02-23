@@ -1,0 +1,10 @@
+CREATE TABLE artifact (
+  id VARCHAR(255) NOT NULL,
+   name VARCHAR(255) NULL,
+   `description` VARCHAR(255) NULL,
+   image_url VARCHAR(255) NULL,
+   owner_id INT NULL,
+   CONSTRAINT pk_artifact PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE artifact ADD CONSTRAINT FK_ARTIFACT_ON_OWNER FOREIGN KEY (owner_id) REFERENCES wizard (id);

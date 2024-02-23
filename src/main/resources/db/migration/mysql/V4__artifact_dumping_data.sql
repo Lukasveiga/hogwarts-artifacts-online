@@ -1,0 +1,6 @@
+INSERT INTO `artifact` VALUES ('1250808601744904191','A Deluminator is a device invented by Albus Dumbledore that resembles a cigarette lighter. It is used to remove or absorb (as well as return) the light from any light source to provide cover to the user.','ImageUrl','Deluminator (Production DB)',1),
+('1250808601744904192','An invisibility cloak is used to make the wearer invisible.','ImageUrl','Invisibility Cloak',2),
+('1250808601744904193','The Elder Wand, known throughout history as the Deathstick or the Wand of Destiny, is an extremely powerful wand made of elder wood with a core of Thestral tail hair.','ImageUrl','Elder Wand',1),
+('1250808601744904194','A magical map of Hogwarts created by Remus Lupin, Peter Pettigrew, Sirius Black, and James Potter while they were students at Hogwarts.','ImageUrl','The Marauder"s Map',2),
+('1250808601744904195','A goblin-made sword adorned with large rubies on the pommel. It was once owned by Godric Gryffindor, one of the medieval founders of Hogwarts.','ImageUrl','The Sword Of Gryffindor',3),
+('1250808601744904196','The Resurrection Stone allows the holder to bring back deceased loved ones, in a semi-physical form, and communicate with them.','ImageUrl','Resurrection Stone',NULL);
