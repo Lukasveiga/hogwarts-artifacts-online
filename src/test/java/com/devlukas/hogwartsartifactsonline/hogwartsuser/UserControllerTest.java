@@ -1,10 +1,10 @@
 package com.devlukas.hogwartsartifactsonline.hogwartsuser;
 
+import com.devlukas.hogwartsartifactsonline.ControllerTestConfig;
 import com.devlukas.hogwartsartifactsonline.hogwartsuser.dto.UserDto;
 import com.devlukas.hogwartsartifactsonline.hogwartsuser.dto.UserSaveDto;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
@@ -12,11 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -28,10 +25,7 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@ActiveProfiles("test")
-@SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
-class UserControllerTest {
+class UserControllerTest extends ControllerTestConfig {
 
     @Autowired
     MockMvc mockMvc;
