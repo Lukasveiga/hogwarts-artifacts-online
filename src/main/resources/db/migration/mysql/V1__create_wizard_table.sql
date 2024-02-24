@@ -1,5 +1,5 @@
-CREATE TABLE `wizard` (
-  `id` int NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE wizard (
+  id INT AUTO_INCREMENT NOT NULL,
+   name VARCHAR(255) NULL,
+   CONSTRAINT pk_wizard PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
