@@ -1,10 +1,10 @@
-CREATE TABLE artifact (
-  id VARCHAR(255) NOT NULL,
-   name VARCHAR(255) NULL,
-   `description` VARCHAR(255) NULL,
-   image_url VARCHAR(255) NULL,
-   owner_id INT NULL,
-   CONSTRAINT pk_artifact PRIMARY KEY (id)
+CREATE TABLE `artifact` (
+  `id` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `owner_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK9wrsj4y4t5uiba7957lcjdfge` (`owner_id`),
+  CONSTRAINT `FK9wrsj4y4t5uiba7957lcjdfge` FOREIGN KEY (`owner_id`) REFERENCES `wizard` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-ALTER TABLE artifact ADD CONSTRAINT FK_ARTIFACT_ON_OWNER FOREIGN KEY (owner_id) REFERENCES wizard (id);
