@@ -8,5 +8,6 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("dev")
+@Tag("Integration")
 public class IntegrationTestConfig {
 }
