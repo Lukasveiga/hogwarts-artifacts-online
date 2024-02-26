@@ -1,5 +1,6 @@
 package com.devlukas.hogwartsartifactsonline.wizard;
 
+import com.devlukas.hogwartsartifactsonline.ServiceTestConfig;
 import com.devlukas.hogwartsartifactsonline.artifact.Artifact;
 import com.devlukas.hogwartsartifactsonline.artifact.ArtifactRepository;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
@@ -20,8 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-class WizardServiceTest {
+
+class WizardServiceTest extends ServiceTestConfig {
 
     @InjectMocks
     private WizardService wizardService;

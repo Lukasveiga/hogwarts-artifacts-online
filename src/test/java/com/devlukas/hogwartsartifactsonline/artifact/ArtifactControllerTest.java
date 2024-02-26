@@ -1,5 +1,6 @@
 package com.devlukas.hogwartsartifactsonline.artifact;
 
+import com.devlukas.hogwartsartifactsonline.ControllerTestConfig;
 import com.devlukas.hogwartsartifactsonline.artifact.dto.ArtifactDto;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
@@ -27,10 +28,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@ActiveProfiles("test")
-@SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
-class ArtifactControllerTest {
+
+class ArtifactControllerTest extends ControllerTestConfig {
 
     @Autowired
     MockMvc mockMvc;
