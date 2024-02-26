@@ -1,6 +1,6 @@
 package com.devlukas.hogwartsartifactsonline.wizard;
 
-import com.devlukas.hogwartsartifactsonline.IntegrationTest;
+import com.devlukas.hogwartsartifactsonline.IntegrationTestConfig;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
 import com.devlukas.hogwartsartifactsonline.wizard.dto.WizardDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +20,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-public class WizardControllerIntegrationTest extends IntegrationTest {
+public class WizardControllerIntegration extends IntegrationTestConfig {
 
     @Autowired
     MockMvc mockMvc;

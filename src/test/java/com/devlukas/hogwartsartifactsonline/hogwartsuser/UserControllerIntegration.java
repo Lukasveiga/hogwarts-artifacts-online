@@ -1,10 +1,9 @@
 package com.devlukas.hogwartsartifactsonline.hogwartsuser;
 
-import com.devlukas.hogwartsartifactsonline.IntegrationTest;
+import com.devlukas.hogwartsartifactsonline.IntegrationTestConfig;
 import com.devlukas.hogwartsartifactsonline.hogwartsuser.dto.UserDto;
 import com.devlukas.hogwartsartifactsonline.hogwartsuser.dto.UserSaveDto;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
@@ -19,13 +18,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-public class UserControllerIntegrationTest extends IntegrationTest {
+public class UserControllerIntegration extends IntegrationTestConfig {
 
     @Autowired
     MockMvc mockMvc;

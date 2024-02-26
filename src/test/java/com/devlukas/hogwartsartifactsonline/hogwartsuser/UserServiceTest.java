@@ -1,5 +1,6 @@
 package com.devlukas.hogwartsartifactsonline.hogwartsuser;
 
+import com.devlukas.hogwartsartifactsonline.ServiceTestConfig;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,9 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-@ActiveProfiles("test")
-class UserServiceTest {
+
+class UserServiceTest extends ServiceTestConfig {
 
     @Mock
     private UserRepository userRepository;

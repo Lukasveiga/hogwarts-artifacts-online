@@ -1,6 +1,6 @@
 package com.devlukas.hogwartsartifactsonline.artifact;
 
-import com.devlukas.hogwartsartifactsonline.IntegrationTest;
+import com.devlukas.hogwartsartifactsonline.IntegrationTestConfig;
 import com.devlukas.hogwartsartifactsonline.artifact.dto.ArtifactDto;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
-public class ArtifactControllerIntegrationTest extends IntegrationTest {
+public class ArtifactControllerIntegration extends IntegrationTestConfig {
 
     @Autowired
     MockMvc mockMvc;
