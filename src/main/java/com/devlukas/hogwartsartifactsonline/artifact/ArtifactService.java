@@ -2,6 +2,7 @@ package com.devlukas.hogwartsartifactsonline.artifact;
 
 import com.devlukas.hogwartsartifactsonline.artifact.utils.IdWorker;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
+import io.micrometer.core.annotation.Timed;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class ArtifactService {
                 .orElseThrow(() -> new ObjectNotFoundException(Artifact.class.getSimpleName() ,artifactId));
     }
 
+    @Timed(value = "findAllArtifactsService.time")
     public List<Artifact> findAll() {
         return this.artifactRepository.findAll();
     }

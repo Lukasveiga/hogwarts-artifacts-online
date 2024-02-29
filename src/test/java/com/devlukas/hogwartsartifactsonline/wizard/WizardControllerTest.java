@@ -136,7 +136,7 @@ class WizardControllerTest extends ControllerTestConfig {
     }
 
     @Test
-    void testAddWizardFaildWithEmptyProvidedName() throws Exception {
+    void testAddWizardErrordWithEmptyProvidedName() throws Exception {
         // Given
         var wizardDto = new WizardDto(null,
                 "",
@@ -154,7 +154,7 @@ class WizardControllerTest extends ControllerTestConfig {
                         .contentType(MediaType.APPLICATION_JSON).content(wizardDtoJson).accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.flag").value(false))
                 .andExpect(jsonPath("$.code").value(StatusCode.INVALID_ARGUMENT))
-                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details"))
+                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details."))
                 .andExpect(jsonPath("$.data.name").value("Name is required"));
     }
 
@@ -203,7 +203,7 @@ class WizardControllerTest extends ControllerTestConfig {
     }
 
     @Test
-    void testUpdateWizardFaildWithEmptyProvidedName() throws Exception {
+    void testUpdateWizardErrorWithEmptyProvidedName() throws Exception {
         // Given
         var wizardDto = new WizardDto(1, "", null);
 
@@ -219,7 +219,7 @@ class WizardControllerTest extends ControllerTestConfig {
                         .contentType(MediaType.APPLICATION_JSON).content(wizardDtoJson).accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.flag").value(false))
                 .andExpect(jsonPath("$.code").value(StatusCode.INVALID_ARGUMENT))
-                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details"))
+                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details."))
                 .andExpect(jsonPath("$.data.name").value("Name is required"));
     }
 
