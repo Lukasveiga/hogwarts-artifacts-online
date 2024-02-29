@@ -14,3 +14,41 @@ api:
 
 server:
   port: 80
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,beans,configprops,heapdump,httpexchanges,loggers,mappings,custom-beans
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    env:
+      show-values: always
+    configprops:
+      show-values: always
+  info:
+    env:
+      enabled: true
+    git:
+      enabled: true
+      mode: full
+    build:
+      enable: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+
+info:
+  app:
+    name: hogwarts-artifacts-online
+    description: A web application that manages artifacts for Hogwarts School
+    version: @project.version@
+    author: Lukas Veiga
+    links:
+      github: https://github.com/Lukasveiga
+      linkedin: https://www.linkedin.com/in/lukas-veiga/
+

@@ -83,7 +83,7 @@ class UserControllerTest extends ControllerTestConfig {
     }
 
     @Test
-    void testSaveUserErrorWhenIsProvidedEmptyFiles() throws Exception {
+    void testSaveUserErrorWhenIsProvidedEmptyFields() throws Exception {
         // Given
         var userDto = new UserSaveDto(1, "", "", true, "");
         var userDtoJson = objectMapper.writeValueAsString(userDto);
@@ -92,7 +92,7 @@ class UserControllerTest extends ControllerTestConfig {
         this.mockMvc.perform(post(BASE_URL).contentType(MediaType.APPLICATION_JSON).content(userDtoJson).accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.flag").value(false))
                 .andExpect(jsonPath("$.code").value(StatusCode.INVALID_ARGUMENT))
-                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details"))
+                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details."))
                 .andExpect(jsonPath("$.data.username").value("Username is required."))
                 .andExpect(jsonPath("$.data.password").value("Password is required."))
                 .andExpect(jsonPath("$.data.roles").value("Roles are required."));
@@ -199,7 +199,7 @@ class UserControllerTest extends ControllerTestConfig {
     }
 
     @Test
-    void testUpdateUserErrorWhenIsProvidedEmptyFiles() throws Exception {
+    void testUpdateUserErrorWhenIsProvidedEmptyFields() throws Exception {
         // Given
         var userId = 1;
 
@@ -211,7 +211,7 @@ class UserControllerTest extends ControllerTestConfig {
                         .content(userDtoJson).accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.flag").value(false))
                 .andExpect(jsonPath("$.code").value(StatusCode.INVALID_ARGUMENT))
-                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details"))
+                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details."))
                 .andExpect(jsonPath("$.data.username").value("Username is required."))
                 .andExpect(jsonPath("$.data.roles").value("Roles are required."));
     }
