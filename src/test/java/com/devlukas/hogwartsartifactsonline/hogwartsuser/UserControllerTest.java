@@ -5,23 +5,16 @@ import com.devlukas.hogwartsartifactsonline.hogwartsuser.dto.UserDto;
 import com.devlukas.hogwartsartifactsonline.hogwartsuser.dto.UserSaveDto;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -53,10 +46,6 @@ class UserControllerTest extends ControllerTestConfig {
                 UserUtils.createUser(2, "test2", "password2", true, "admin"),
                 UserUtils.createUser(3, "test3", "password3", true, "user admin")
         );
-    }
-
-    @AfterEach
-    void tearDown() {
     }
 
     @Test
