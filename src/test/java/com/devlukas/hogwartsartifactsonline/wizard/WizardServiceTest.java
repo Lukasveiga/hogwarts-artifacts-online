@@ -4,13 +4,10 @@ import com.devlukas.hogwartsartifactsonline.ServiceTestConfig;
 import com.devlukas.hogwartsartifactsonline.artifact.Artifact;
 import com.devlukas.hogwartsartifactsonline.artifact.ArtifactRepository;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +40,6 @@ class WizardServiceTest extends ServiceTestConfig {
                 generateWizard(2, "Albus Dumbledore"),
                 generateWizard(3, "Hermione Granger")
         ));
-    }
-
-    @AfterEach
-    void tearDown() {
     }
 
     @Test

@@ -5,7 +5,6 @@ import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundExcep
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.observation.annotation.Observed;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
