@@ -102,6 +102,7 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 		<!--
+		Using just in dev environment
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-properties-migrator</artifactId>
