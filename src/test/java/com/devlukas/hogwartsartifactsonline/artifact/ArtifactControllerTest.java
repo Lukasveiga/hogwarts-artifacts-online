@@ -4,6 +4,7 @@ import com.devlukas.hogwartsartifactsonline.ControllerTestConfig;
 import com.devlukas.hogwartsartifactsonline.artifact.dto.ArtifactDto;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -231,5 +232,20 @@ class ArtifactControllerTest extends ControllerTestConfig {
                 .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
                 .andExpect(jsonPath("$.message").value("Could not found Artifact with Id " + artifactId))
                 .andExpect(jsonPath("$.data").isEmpty());
+    }
+
+    @Test
+    void testSummarizeArtifactsSuccess() throws Exception {
+        // Given
+        when(this.artifactService.summarize(anyList()))
+                .thenReturn("The summary includes six artifacts ...");
+
+        // When - Then
+        this.mockMvc.perform(
+                        get(BASE_URL + "/" + "summary").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(true))
+                .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
+                .andExpect(jsonPath("$.message").value("Summarize success"))
+                .andExpect(jsonPath("$.data").value("The summary includes six artifacts ..."));
     }
 }

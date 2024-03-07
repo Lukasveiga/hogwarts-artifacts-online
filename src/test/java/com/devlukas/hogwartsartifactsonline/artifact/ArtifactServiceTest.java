@@ -1,9 +1,18 @@
 package com.devlukas.hogwartsartifactsonline.artifact;
 
 import com.devlukas.hogwartsartifactsonline.ServiceTestConfig;
+import com.devlukas.hogwartsartifactsonline.artifact.dto.ArtifactDto;
 import com.devlukas.hogwartsartifactsonline.artifact.utils.IdWorker;
+import com.devlukas.hogwartsartifactsonline.client.ia.chat.ChatClient;
+import com.devlukas.hogwartsartifactsonline.client.ia.chat.dto.ChatRequest;
+import com.devlukas.hogwartsartifactsonline.client.ia.chat.dto.ChatResponse;
+import com.devlukas.hogwartsartifactsonline.client.ia.chat.dto.Choice;
+import com.devlukas.hogwartsartifactsonline.client.ia.chat.dto.Message;
 import com.devlukas.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import com.devlukas.hogwartsartifactsonline.wizard.Wizard;
+import com.devlukas.hogwartsartifactsonline.wizard.dto.WizardDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,6 +35,9 @@ class ArtifactServiceTest extends ServiceTestConfig {
 
     @Mock
     IdWorker idWorker;
+
+    @Mock
+    ChatClient chatClient;
 
     @InjectMocks
     ArtifactService artifactService;
@@ -220,4 +232,33 @@ class ArtifactServiceTest extends ServiceTestConfig {
         verify(artifactRepository, times(1)).findById("123456");
         verify(artifactRepository, times(0)).deleteById("123456");
     }
+
+    @Test
+    void testSummarizeSuccess() throws JsonProcessingException {
+        // Given
+        var wizardDto = new WizardDto(1, "Albus Dombledore", 2);
+        List<ArtifactDto> artifactDtos = List.of(
+                new ArtifactDto("1", "Deluminartor", "Generic description...", "imageUrl", wizardDto),
+                new ArtifactDto("2", "Elder Wand", "Generic description...", "imageUrl", wizardDto)
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonArray = objectMapper.writeValueAsString(artifactDtos);
+
+        List<Message> messages = List.of(new Message("system", "prompt"), new Message("user", jsonArray));
+        var chatRequest = new ChatRequest("gpt-4", messages);
+
+        var chatResponse = new ChatResponse(List.of(new Choice(1, new Message("assistant", "A summary of two artifacts..."))));
+
+
+        when(this.chatClient.generate(any(ChatRequest.class))).thenReturn(chatResponse);
+
+        // When
+        String summary = this.artifactService.summarize(artifactDtos);
+
+        // Then
+        assertThat(summary).isEqualTo("A summary of two artifacts...");
+        verify(this.chatClient, times(1)).generate(any(ChatRequest.class));
+    }
+
 }
