@@ -5,6 +5,7 @@ import com.devlukas.hogwartsartifactsonline.artifact.converter.ArtifactToArtifac
 import com.devlukas.hogwartsartifactsonline.artifact.dto.ArtifactDto;
 import com.devlukas.hogwartsartifactsonline.system.Result;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -80,5 +81,14 @@ public class ArtifactController {
         return new Result(true,
                 StatusCode.SUCCESS,
                 "Delete success");
+    }
+
+    @GetMapping("/summary")
+    public Result summarizeArtifacts() throws JsonProcessingException {
+        var foundArtifacts = this.artifactService.findAll();
+        var artifactsDtos = foundArtifacts.stream().map(artifactToArtifactDtoConverter::convert).toList();
+
+        String artifactsSummary = this.artifactService.summarize(artifactsDtos);
+        return new Result(true, StatusCode.SUCCESS, "Summarize success", artifactsSummary);
     }
 }

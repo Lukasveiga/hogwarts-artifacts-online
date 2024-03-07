@@ -2,7 +2,11 @@ package com.devlukas.hogwartsartifactsonline.system.exception;
 
 import com.devlukas.hogwartsartifactsonline.system.Result;
 import com.devlukas.hogwartsartifactsonline.system.StatusCode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,11 +19,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
@@ -83,8 +91,31 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    Result handleAccessDeniedException(NoHandlerFoundException ex) {
+    Result handleNoHandlerFoundException(NoHandlerFoundException ex) {
         return new Result(false, StatusCode.NOT_FOUND, "This API endpoint is not found.", ex.getMessage());
+    }
+
+    @ExceptionHandler({HttpClientErrorException.class, HttpServerErrorException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    ResponseEntity<Result> handleRestClientException(HttpStatusCodeException ex) throws JsonProcessingException {
+
+        String exceptionMessage = ex.getMessage();
+
+        exceptionMessage = exceptionMessage.replace("<EOL>", "\n");
+
+        String jsonPart = exceptionMessage.substring(exceptionMessage.indexOf("{"), exceptionMessage.lastIndexOf("}") + 1);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonNode  rootNode = mapper.readTree(jsonPart);
+
+        String formattedExceptionMessage = rootNode.path("error").path("message").asText();
+
+        return new ResponseEntity<>(
+                new Result(false,
+                        ex.getStatusCode().value(),
+                        "A rest client error occurs, see data for details",
+                        formattedExceptionMessage), ex.getStatusCode());
     }
 
     @ExceptionHandler(Exception.class)
@@ -93,5 +124,7 @@ public class ExceptionHandlerAdvice {
         return new Result(false, StatusCode.INTERNAL_SERVER_ERROR,
                 "A sever internal error accours.", ex.getMessage());
     }
+
+
 
 }
