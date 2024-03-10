@@ -3,4 +3,4 @@ scrape_configs:
     metrics_path: "/actuator/prometheus"
     scrape_interval: 3s # how often to scrape
     static_configs:
-      - targets: ["localhost:8080"]
+      - targets: ["hogwarts-artifact-online:8080"]
